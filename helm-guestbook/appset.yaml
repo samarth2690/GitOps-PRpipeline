@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: helm-k8s
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/wings-software/rohittest.git
+      revision: release-repo-demo
+      files:
+      - path: "gitops/prpipeline/helm-guestbook/*/*/config.json"
+  template:
+    metadata:
+      name: 'helm-guestbook-{{cluster.name}}'
+    spec:
+      project: 1db58e2e
+      source:
+        repoURL: https://github.com/wings-software/anshul-test.git
+        targetRevision: '{{releaseTag}}'
+        path: "helm/apps/app1/{{pathSuffix}}/helm-guestbook"
+        helm:
+          parameters:
+            - name: version
+              value: '{{version}}'
+      destination:
+        server: '{{cluster.address}}'
+        namespace: apps
+      syncPolicy:
+        automated: {}

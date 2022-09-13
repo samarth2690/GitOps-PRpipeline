@@ -1,0 +1,11 @@
+{
+  "releaseTag" : "helm-v0.3",
+  "cluster" : {
+    "address" : "https://35.193.28.27",
+    "name" : "cluster3"
+  },
+  "pathSuffix" : "dev",
+  "replica" : "2",
+  "hello" : "asd",
+  "version" : "v1.0.1"
+}
